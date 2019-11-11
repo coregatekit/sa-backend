@@ -1,18 +1,31 @@
 pipeline {
     agent any
 
+    environment {
+        dockerImage = ''
+    }
+
     stages {
-        stage('Compile Stage') {
+        stage('Build') {
             steps {
-                sh 'gradle bootRun'
+                sh 'gradle clean build'
             }
         }
-        stage('Build Stage') {
+        stage('Test') {
             steps {
-                sh 'gradle clean'
+                sh 'gradle test'
             }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
+        stage('Build image') {
             steps {
-                sh 'gradle fatJar'
+                script {
+                    dockerImage = docker.build("coregatekit/sa-backend")
+                }
             }
         }
     }
