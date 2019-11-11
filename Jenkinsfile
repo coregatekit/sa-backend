@@ -8,12 +8,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'gradle clean build'
+                sh 'gradlew clean build'
             }
         }
         stage('Test') {
             steps {
-                sh 'gradle test'
+                sh 'gradlew test'
             }
             post {
                 always {
