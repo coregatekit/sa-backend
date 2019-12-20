@@ -23,10 +23,10 @@ pipeline {
             stage('Sonarqube') {
                 steps {
                     sh """
-                      mvn sonar:sonar \
-                      -Dsonar.projectKey=nodejs-hashing \
+                      ./gradlew sonarqube \
+                      -Dsonar.projectKey=sa-backend \
                       -Dsonar.host.url=http://34.87.28.55:9000 \
-                      -Dsonar.login=d2dd6e9da55787554de85b6a120de62c113225d4
+                      -Dsonar.login=27bfe3795a57814066782c86f6d6ae032bece0c9
                     """
                 }
             }
